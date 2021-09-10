@@ -1,2 +1,2 @@
 # wp1
-Network map of European projects
+[Network map of European projects](./nx.html)
