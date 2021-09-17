@@ -1,0 +1,92 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"group": "LIFE climate change adaptation", "id": "LIFE AgroClimaWater", "label": "LIFE AgroClimaWater", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE-Montado-adapt", "label": "LIFE-Montado-adapt", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE AGRI ADAPT", "label": "LIFE AGRI ADAPT", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE ADAPT2CLIMA", "label": "LIFE ADAPT2CLIMA", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE LiveAdapt", "label": "LIFE LiveAdapt", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE ViVaCCAdapt", "label": "LIFE ViVaCCAdapt", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE AMDRYC4", "label": "LIFE AMDRYC4", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "GREAT LIFE", "label": "GREAT LIFE", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "Farm LIFE", "label": "Farm LIFE", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE MIDMACC", "label": "LIFE MIDMACC", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE VineAdapt", "label": "LIFE VineAdapt", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE environment", "id": "Seq-Cure", "label": "Seq-Cure", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "LIFE environment", "id": "Life+ ClimAgri", "label": "Life+ ClimAgri", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "FP7 Sustainable management for climate change mitigation", "id": "CATCH-C", "label": "CATCH-C", "shape": "dot", "size": 8, "title": "FP7 Sustainable management for climate change mitigation"}, {"group": "H2020 Soil quality and function", "id": "LANDMARK", "label": "LANDMARK", "shape": "dot", "size": 8, "title": "H2020 Soil quality and function"}, {"group": "H2020 External nutrient inputs", "id": "FATIMA", "label": "FATIMA", "shape": "dot", "size": 8, "title": "H2020 External nutrient inputs"}, {"group": "H2020 Soil quality and function", "id": "iSQAPER", "label": "iSQAPER", "shape": "dot", "size": 8, "title": "H2020 Soil quality and function"}, {"group": "H2020 Agriculture soil contribution to climate change mitigation and adaptation", "id": "CIRCASA", "label": "CIRCASA", "shape": "dot", "size": 8, "title": "H2020 Agriculture soil contribution to climate change mitigation and adaptation"}, {"group": "H2020 Water management in agricultural catchments", "id": "OPTAIN", "label": "OPTAIN", "shape": "dot", "size": 8, "title": "H2020 Water management in agricultural catchments"}, {"group": "H2020 Climate-smart farming", "id": "STARGATE", "label": "STARGATE", "shape": "dot", "size": 8, "title": "H2020 Climate-smart farming"}, {"group": "H2020 Thematic networks on knowledge and practice", "id": "BEST4SOIL", "label": "BEST4SOIL", "shape": "dot", "size": 8, "title": "H2020 Thematic networks on knowledge and practice"}, {"group": "LIFE climate change adaptation", "id": "LIFE TERRACESCAPE", "label": "LIFE TERRACESCAPE", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE climate change adaptation", "id": "LIFE VinEcoS", "label": "LIFE VinEcoS", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "FP7 Sustainable management for climate change mitigation", "id": "SmartSoil", "label": "SmartSoil", "shape": "dot", "size": 8, "title": "FP7 Sustainable management for climate change mitigation"}, {"group": "H2020 Soil-improving cropping systems", "id": "SOILCARE", "label": "SOILCARE", "shape": "dot", "size": 8, "title": "H2020 Soil-improving cropping systems"}, {"group": "H2020 Crop diversification and value chain", "id": "Diverfarming", "label": "Diverfarming", "shape": "dot", "size": 8, "title": "H2020 Crop diversification and value chain"}, {"group": "INTERREG", "id": "TOPSOIL", "label": "TOPSOIL", "shape": "dot", "size": 8, "title": "INTERREG"}, {"group": "LIFE climate change adaptation", "id": "PASTORALP", "label": "PASTORALP", "shape": "dot", "size": 8, "title": "LIFE climate change adaptation"}, {"group": "LIFE environment", "id": "Soil4Life", "label": "Soil4Life", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "FP7 Sustainable land care", "id": "RECARE", "label": "RECARE", "shape": "dot", "size": 8, "title": "FP7 Sustainable land care"}, {"group": "H2020 Biodiversity in action", "id": "SoildiverAgro", "label": "SoildiverAgro", "shape": "dot", "size": 8, "title": "H2020 Biodiversity in action"}, {"group": "H2020 Solutions to stresses in crop production", "id": "SolACE", "label": "SolACE", "shape": "dot", "size": 8, "title": "H2020 Solutions to stresses in crop production"}, {"group": "LIFE climate change mitigation", "id": "LIFE agriCOlture", "label": "LIFE agriCOlture", "shape": "dot", "size": 8, "title": "LIFE climate change mitigation"}, {"group": "LIFE environment", "id": "SOLMACC Life", "label": "SOLMACC Life", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "LIFE environment", "id": "LIFE HelpSoil", "label": "LIFE HelpSoil", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "LIFE environment", "id": "LIFE+ AGRICARBON", "label": "LIFE+ AGRICARBON", "shape": "dot", "size": 8, "title": "LIFE environment"}, {"group": "LIFE environment", "id": "LIFE+ SOIL4WINE", "label": "LIFE+ SOIL4WINE", "shape": "dot", "size": 8, "title": "LIFE environment"}]);
+        edges = new vis.DataSet([{"from": "LIFE AgroClimaWater", "to": "LIFE-Montado-adapt", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE AGRI ADAPT", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE ADAPT2CLIMA", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE LiveAdapt", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE ViVaCCAdapt", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE AMDRYC4", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "GREAT LIFE", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "Farm LIFE", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE MIDMACC", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE VineAdapt", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "Seq-Cure", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "Life+ ClimAgri", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "CATCH-C", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LANDMARK", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "FATIMA", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "iSQAPER", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "CIRCASA", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "OPTAIN", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "STARGATE", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "BEST4SOIL", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE TERRACESCAPE", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "LIFE VinEcoS", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "SmartSoil", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "SOILCARE", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "Diverfarming", "weight": 1}, {"from": "LIFE AgroClimaWater", "to": "TOPSOIL", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE-Montado-adapt", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE AGRI ADAPT", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE ViVaCCAdapt", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE AMDRYC4", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE TERRACESCAPE", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "PASTORALP", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "GREAT LIFE", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "Farm LIFE", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LIFE VineAdapt", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "Soil4Life", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "SmartSoil", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "CATCH-C", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "RECARE", "weight": 1}, {"from": "LIFE ADAPT2CLIMA", "to": "LANDMARK", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE AMDRYC4", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "Farm LIFE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LANDMARK", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "iSQAPER", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "SoildiverAgro", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "SolACE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "Diverfarming", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "GREAT LIFE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE LiveAdapt", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE agriCOlture", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "CIRCASA", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE MIDMACC", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "SOLMACC Life", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "SmartSoil", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "SOILCARE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "STARGATE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "BEST4SOIL", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE ViVaCCAdapt", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE TERRACESCAPE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "PASTORALP", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "Soil4Life", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE AGRI ADAPT", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE VineAdapt", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE VinEcoS", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE HelpSoil", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "Life+ ClimAgri", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE+ AGRICARBON", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "CATCH-C", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "RECARE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "FATIMA", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "LIFE+ SOIL4WINE", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "TOPSOIL", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "OPTAIN", "weight": 1}, {"from": "LIFE-Montado-adapt", "to": "Seq-Cure", "weight": 1}, {"from": "LIFE AGRI ADAPT", "to": "PASTORALP", "weight": 1}, {"from": "LIFE AGRI ADAPT", "to": "LIFE LiveAdapt", "weight": 1}, {"from": "LIFE AGRI ADAPT", "to": "SmartSoil", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "Seq-Cure", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "Life+ ClimAgri", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "LIFE agriCOlture", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "LIFE+ AGRICARBON", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "SOLMACC Life", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "SoildiverAgro", "weight": 1}, {"from": "LIFE LiveAdapt", "to": "Diverfarming", "weight": 1}, {"from": "Seq-Cure", "to": "Life+ ClimAgri", "weight": 1}, {"from": "Seq-Cure", "to": "LIFE agriCOlture", "weight": 1}, {"from": "Seq-Cure", "to": "LIFE+ AGRICARBON", "weight": 1}, {"from": "Seq-Cure", "to": "SOLMACC Life", "weight": 1}, {"from": "Seq-Cure", "to": "SmartSoil", "weight": 1}, {"from": "Seq-Cure", "to": "CATCH-C", "weight": 1}, {"from": "Seq-Cure", "to": "RECARE", "weight": 1}, {"from": "Seq-Cure", "to": "LANDMARK", "weight": 1}, {"from": "Seq-Cure", "to": "FATIMA", "weight": 1}, {"from": "Seq-Cure", "to": "CIRCASA", "weight": 1}, {"from": "Seq-Cure", "to": "Diverfarming", "weight": 1}, {"from": "LIFE HelpSoil", "to": "LIFE agriCOlture", "weight": 1}, {"from": "LIFE HelpSoil", "to": "LIFE+ SOIL4WINE", "weight": 1}, {"from": "LIFE HelpSoil", "to": "LIFE+ AGRICARBON", "weight": 1}, {"from": "LIFE HelpSoil", "to": "RECARE", "weight": 1}, {"from": "LIFE agriCOlture", "to": "LIFE+ SOIL4WINE", "weight": 1}, {"from": "LIFE agriCOlture", "to": "LIFE+ AGRICARBON", "weight": 1}, {"from": "LIFE agriCOlture", "to": "RECARE", "weight": 1}, {"from": "CATCH-C", "to": "iSQAPER", "weight": 1}, {"from": "CATCH-C", "to": "SoildiverAgro", "weight": 1}, {"from": "CATCH-C", "to": "Diverfarming", "weight": 1}, {"from": "CATCH-C", "to": "BEST4SOIL", "weight": 1}, {"from": "RECARE", "to": "SOILCARE", "weight": 1}, {"from": "RECARE", "to": "SoildiverAgro", "weight": 1}, {"from": "RECARE", "to": "SolACE", "weight": 1}, {"from": "LANDMARK", "to": "SOILCARE", "weight": 1}, {"from": "LANDMARK", "to": "iSQAPER", "weight": 1}, {"from": "LANDMARK", "to": "STARGATE", "weight": 1}, {"from": "LANDMARK", "to": "Diverfarming", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"configure": {"enabled": false}, "nodes": {"font": {"size": 25}}, "edges": {"color": {"inherit": true}, "smooth": false}, "physics": {"barnesHut": {"gravitationalConstant": -15000, "springLength": 260, "avoidOverlap": 0.4}, "minVelocity": 0.75}};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
